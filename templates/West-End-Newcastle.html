@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>West End Sensory Art Centre | Build Planet Zero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-nature { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); }
+
+        /* Interesting Image Effects */
+        .glass-frame {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px;
+        }
+
+        .tilt-card {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            perspective: 1000px;
+        }
+
+        .tilt-card:hover {
+            transform: rotateY(2deg) rotateX(2deg) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.25);
+        }
+
+        .floating-badge {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-900 font-sans">
+
+    <nav class="p-6 bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-emerald-100">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-emerald-800 font-bold flex items-center gap-2">
+                <i class="fas fa-leaf"></i> Build Planet Zero
+            </a>
+            <a href="/" class="text-sm font-semibold text-emerald-600 hover:text-emerald-800 transition">Back to Home</a>
+        </div>
+    </nav>
+
+    <header class="hero-nature py-24 text-white">
+        <div class="container mx-auto px-6 max-w-5xl text-center">
+            <span class="px-4 py-1 bg-emerald-400/20 rounded-full text-emerald-300 text-xs font-bold uppercase tracking-widest">Newcastle Project</span>
+            <h1 class="text-5xl md:text-6xl font-extrabold mt-6 mb-8 leading-tight">West End Community <br>Sensory Art Centre</h1>
+            <p class="text-xl text-emerald-50/80 max-w-2xl mx-auto">Renovating the Sensory Garden and depot buildings at Nuns Moor Park into a net-zero sanctuary.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16 max-w-6xl">
+
+        <section class="mb-24 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold text-emerald-900 mb-6">Project Overview</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Build Planet Zero is collaborating with a Community Interest Company (CIC) to transform the underused Sensory Garden and adjacent depot buildings in Nuns Moor Park (West End, Newcastle) into a net-zero Community Arts Centre.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    This initiative aims to revitalise a cherished green space, delivering both environmental innovation and community benefit.
+                </p>
+            </div>
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                <div class="relative glass-frame rounded-[2.5rem] overflow-hidden shadow-2xl">
+                    <img src="/static/westend1.png" alt="Sensory Garden" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-emerald-900">Sustainability Approach</h2>
+                <p class="text-slate-500 mt-2">Guided by Brian Edwards’ 3 Es of Sustainability</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-emerald-100 hover:border-emerald-500 transition-colors">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-6"><i class="fas fa-globe"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Environment</h3>
+                    <ul class="text-slate-600 text-sm space-y-2">
+                        <li>• Sustainable Materials </li>
+                        <li>• Low-Carbon Energy </li>
+                        <li>• Waste Reduction </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-emerald-100 hover:border-emerald-500 transition-colors">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-6"><i class="fas fa-coins"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Economy</h3>
+                    <ul class="text-slate-600 text-sm space-y-2">
+                        <li>• Cost Efficiency </li>
+                        <li>• Local Sourcing </li>
+                        <li>• Smart Energy Use </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-emerald-100 hover:border-emerald-500 transition-colors">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6"><i class="fas fa-users"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Equity</h3>
+                    <ul class="text-slate-600 text-sm space-y-2">
+                        <li>• Community Engagement</li>
+                        <li>• Accessibility </li>
+                        <li>• Circular Economy </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <div class="bg-emerald-900 rounded-[3rem] p-12 text-white">
+                <h2 class="text-3xl font-bold mb-12">Sustainable Material Strategy</h2>
+
+                <div class="mb-12 tilt-card">
+                    <img src="/static/westend2.png" alt="Sustainable Materials" class="w-full h-80 object-cover rounded-2xl shadow-2xl border border-white/20">
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div>
+                        <h4 class="text-emerald-400 font-bold mb-3">Hydraform Blocks</h4>
+                        <p class="text-emerald-100/70 text-sm">Fire-resistant, breathable wall insulation that regulates indoor humidity and provides thermal comfort.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-emerald-400 font-bold mb-3">Straw Bale Panels</h4>
+                        <p class="text-emerald-100/70 text-sm">Strong insulation properties, compostable and biodegradable. Significantly reduces energy consumption.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-emerald-400 font-bold mb-3">CLT Framework</h4>
+                        <p class="text-emerald-100/70 text-sm">Cross-Laminated Timber is carbon-neutral, modular, and enhances structural efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-[3rem] p-12 border border-emerald-100 shadow-xl overflow-hidden relative">
+            <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-emerald-900 mb-6">Project Goals</h2>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-check text-emerald-500 mt-1"></i>
+                            <p><span class="font-bold">The Individual:</span> Promote mental health & well-being.</p>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-check text-emerald-500 mt-1"></i>
+                            <p><span class="font-bold">The Community:</span> Foster unity through shared creative space.</p>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-check text-emerald-500 mt-1"></i>
+                            <p><span class="font-bold">The Planet:</span> Achieve net-zero emissions using renewable energy and sustainable materials.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -top-10 -right-10 w-64 h-64 bg-emerald-100 rounded-full blur-3xl opacity-50"></div>
+
+                    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform hover:-rotate-2 transition-transform duration-500">
+                        <img src="/static/westend4.png" class="w-full h-full object-cover">
+                        <div class="floating-badge absolute bottom-6 right-6 bg-emerald-600 text-white px-6 py-3 rounded-2xl shadow-xl font-bold flex items-center gap-2">
+                            <i class="fas fa-seedling"></i>
+                            Net-Zero Future
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-emerald-950 py-12 text-center text-emerald-300/40 text-sm">
+        <p>&copy; 2026 Build Planet Zero | Newcastle West End Community Project</p>
+    </footer>
+
+</body>
+</html>

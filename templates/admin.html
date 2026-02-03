@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Build Planet Zero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+
+    <nav class="bg-emerald-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="font-bold text-xl"><i class="fas fa-user-shield mr-2"></i> Admin Dashboard</div>
+            <div class="flex items-center gap-4">
+                <span class="hidden md:inline">Logged in as: <strong>{{ username }}</strong></span>
+                <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition font-bold">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-6 p-4 rounded-lg shadow-sm border-l-4 {{ 'bg-red-50 border-red-500 text-red-700' if category == 'error' else 'bg-green-50 border-green-500 text-green-700' }}">
+                        <div class="flex items-center">
+                            <i class="{{ 'fas fa-exclamation-circle' if category == 'error' else 'fas fa-check-circle' }} mr-2"></i>
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="grid lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                        <i class="fas fa-cloud-upload-alt text-emerald-600 mr-2"></i> Upload Document
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-4">Upload a PDF. This triggers a single-file update.</p>
+
+                    <form action="/admin" method="POST" enctype="multipart/form-data" class="space-y-4">
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition cursor-pointer relative group">
+                            <input type="file" name="file" id="fileInput" required accept=".pdf"
+                                   class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                   onchange="updateFileName(this)">
+
+                            <div id="uploadPlaceholder">
+                                <i class="fas fa-file-pdf text-4xl text-gray-300 mb-2 group-hover:text-emerald-500 transition"></i>
+                                <p class="text-sm text-gray-500 font-medium">Click to select PDF</p>
+                            </div>
+
+                            <div id="fileSelected" class="hidden">
+                                <i class="fas fa-check-circle text-4xl text-emerald-500 mb-2"></i>
+                                <p class="text-sm text-emerald-700 font-bold" id="fileNameDisplay">Filename.pdf</p>
+                                <p class="text-xs text-gray-400 mt-1">Ready to upload</p>
+                            </div>
+                        </div>
+
+                        <button type="submit" onclick="showLoading(this)" class="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold hover:bg-emerald-700 transition shadow-md hover:shadow-lg transform hover:-translate-y-1 flex justify-center items-center">
+                            <span id="btnText">Upload & Train AI</span>
+                            <span id="btnLoader" class="hidden ml-2"><i class="fas fa-spinner fa-spin"></i></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+
+                    <div class="flex flex-wrap justify-between items-center mb-6 gap-3">
+                        <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                            <i class="fas fa-database text-emerald-600 mr-2"></i> Knowledge Base
+                        </h3>
+
+                        <div class="flex gap-2">
+                            <a href="/sync_db" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded transition font-semibold">
+                                <i class="fas fa-sync-alt mr-2"></i> Sync
+                            </a>
+
+                            <!-- THE NUCLEAR BUTTON -->
+                            <a href="/reset_brain" onclick="return confirm('⚠️ DANGER: This will WIPE the AI Memory and re-read all files from scratch. It will fix path issues. Are you sure?')" class="text-sm bg-red-100 hover:bg-red-200 text-red-800 px-3 py-2 rounded transition font-semibold">
+                                <i class="fas fa-skull-crossbones mr-2"></i> Reset & Train
+                            </a>
+                        </div>
+                    </div>
+
+                    {% if files %}
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-left text-sm">
+                                <thead class="uppercase tracking-wider border-b bg-gray-50 text-gray-500">
+                                    <tr>
+                                        <th class="px-6 py-3 font-semibold">Filename</th>
+                                        <th class="px-6 py-3 font-semibold">Preview</th>
+                                        <th class="px-6 py-3 text-right font-semibold">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    {% for file in files %}
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-800 flex items-center">
+                                            <i class="fas fa-file-pdf text-red-500 mr-3 text-lg"></i> {{ file[1] }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <a href="/{{ file[2] }}" target="_blank" class="text-emerald-600 hover:text-emerald-800 font-medium hover:underline">
+                                                View PDF
+                                            </a>
+                                        </td>
+                                        <td class="px-6 py-4 text-right">
+                                            <a href="/delete_file/{{ file[0] }}" onclick="return confirm('Remove file?')" class="text-gray-400 hover:text-red-500 transition px-2 py-1 rounded hover:bg-red-50">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-10">
+                            <div class="bg-gray-50 inline-block p-4 rounded-full mb-3">
+                                <i class="fas fa-folder-open text-gray-300 text-3xl"></i>
+                            </div>
+                            <p class="text-gray-500">No documents tracked.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function updateFileName(input) {
+            if (input.files && input.files[0]) {
+                document.getElementById('uploadPlaceholder').classList.add('hidden');
+                document.getElementById('fileSelected').classList.remove('hidden');
+                document.getElementById('fileNameDisplay').innerText = input.files[0].name;
+            }
+        }
+
+        function showLoading(btn) {
+            const input = document.getElementById('fileInput');
+            if (input.files.length > 0) {
+                const btnText = document.getElementById('btnText');
+                const btnLoader = document.getElementById('btnLoader');
+                btnText.innerText = "Processing...";
+                btn.classList.add('opacity-75', 'cursor-not-allowed');
+                btnLoader.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

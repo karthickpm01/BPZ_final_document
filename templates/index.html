@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Planet Zero | Net-Zero Carbon Construction</title>
+  <meta name="description" content="Build Planet Zero is committed to achieving net-zero carbon in the construction industry.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Calendly CSS -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+
+  <style>
+    /* === GLOBAL STYLES === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      color: #1f2937;
+    }
+
+    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-signature { font-family: 'Dancing Script', cursive; }
+
+    /* === HEADER & NAV === */
+    .header-gradient-border {
+      border-bottom: 2px solid transparent;
+      border-image: linear-gradient(to right, #059669, #34d399, #059669) 1;
+    }
+    .nav-item { position: relative; font-weight: 500; color: #374151; transition: color 0.3s ease; }
+    .nav-item::before {
+      content: ""; position: absolute; display: block; width: 100%; height: 2px;
+      bottom: -4px; left: 0; background-color: #10b981; transform: scaleX(0);
+      transform-origin: top left; transition: transform 0.3s ease;
+    }
+    .nav-item:hover { color: #059669; }
+    .nav-item:hover::before { transform: scaleX(1); }
+
+    /* === HERO SECTION === */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.9) 0%, rgba(16, 185, 129, 0.75) 100%);
+      z-index: 1;
+    }
+
+    /* === UI COMPONENTS === */
+    .btn-shine { position: relative; overflow: hidden; }
+    .btn-shine::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.5s;
+    }
+    .btn-shine:hover::after { left: 100%; }
+
+    .section-divider {
+      width: 6rem; height: 0.35rem;
+      background: linear-gradient(to right, #059669, #34d399);
+      margin: 0 auto; border-radius: 2rem;
+    }
+
+    /* Project Cards */
+    .project-card {
+      border-radius: 1rem; overflow: hidden; background: white;
+      transition: all 0.4s ease;
+      border: 1px solid #f3f4f6;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+
+    /* Team Cards */
+    .team-card {
+        background: white; border-radius: 1rem; overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    .team-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.15); }
+
+    /* CEO Section Style */
+    .ceo-pattern {
+        background-color: #064e3b;
+        background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+    }
+
+    /* Background Pattern */
+    .bg-pattern-dots {
+        background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    /* === FLOATING ELEMENTS === */
+    #chatbot {
+      position: fixed; bottom: 30px; right: 30px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      padding: 15px 25px; border-radius: 50px;
+      color: white; font-size: 16px; font-weight: 600; cursor: pointer;
+      z-index: 1000; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+      transition: transform 0.3s ease; display: flex; align-items: center; gap: 10px;
+    }
+    #chatbot:hover { transform: translateY(-3px) scale(1.05); }
+
+    #floating-book {
+      position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+      background: #059669; color: white;
+      padding: 15px 10px; border-radius: 10px 0 0 10px;
+      cursor: pointer; z-index: 999;
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-weight: 700; letter-spacing: 1px;
+      box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    #floating-book:hover { padding-right: 20px; background: #047857; }
+
+    @media (max-width: 768px) {
+      .hero { padding: 6rem 1rem 2rem; }
+      .hero-bg { background-attachment: scroll; }
+      h1 { font-size: 2.5rem; line-height: 1.2; }
+      #chatbot { bottom: 20px; right: 20px; padding: 15px; width: 60px; height: 60px; justify-content: center; border-radius: 50%; }
+      #chatbot span { display: none; }
+      #floating-book { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Flashed Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div id="flash-message" class="fixed top-24 right-5 z-50">
+        {% for category, message in messages %}
+          <div class="mb-4 px-6 py-4 rounded-lg shadow-xl text-white {{ 'bg-red-500' if category == 'error' else 'bg-emerald-600' }} flex items-center gap-3 animate-bounce">
+             <i class="fas {{ 'fa-exclamation-circle' if category == 'error' else 'fa-check-circle' }}"></i>
+             {{ message }}
+             <button onclick="this.parentElement.remove()" class="ml-4 hover:text-gray-200"><i class="fas fa-times"></i></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- ==================== 1. NAVIGATION BAR ==================== -->
+  <header id="main-header" class="bg-white/95 backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-300 header-gradient-border">
+    <nav class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-3 group">
+        <div class="relative overflow-hidden rounded-lg shadow-sm group-hover:shadow-md transition">
+          <img src="/static/LOGO_1.jpeg" alt="Build Planet Zero" class="h-10 w-10 md:h-12 md:w-12 object-cover transform group-hover:scale-105 transition duration-500">
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg md:text-xl font-bold text-gray-900 leading-none">Build Planet Zero</span>
+          <span class="text-[10px] md:text-xs text-emerald-600 font-semibold tracking-widest uppercase">Net-Zero Construction</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-8">
+        <a href="#about" class="nav-item">About</a>
+        <a href="#specialties" class="nav-item">Specialties</a>
+        <a href="#projects" class="nav-item">Projects</a>
+        <a href="#team" class="nav-item">Team</a>
+        <!-- Highlighted Link -->
+        <a href="#contact" class="nav-item">Contact</a>
+
+        <!-- Admin Link -->
+<!--        <a href="{{ url_for('login') }}" class="flex items-center gap-2 ml-4 px-4 py-2 bg-gray-100 rounded-full text-xs font-bold text-gray-600 hover:bg-gray-200 transition">-->
+<!--            <i class="fas fa-user-shield"></i> Admin-->
+<!--        </a>-->
+      </div>
+
+      <!-- Mobile Action -->
+      <div class="lg:hidden">
+          <a href="#booking" class="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow hover:bg-emerald-700">Book Now</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==================== 2. HERO SECTION ==================== -->
+  <section class="hero relative">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="relative z-10 container mx-auto px-4 md:px-6 text-center" data-aos="fade-up">
+      <div class="inline-block p-2 bg-white/20 backdrop-blur-sm rounded-full mb-6 px-6 text-white font-semibold text-xs md:text-sm tracking-wide border border-white/30">
+        <i class="fas fa-seedling mr-2"></i> Established 2022 • Newcastle upon Tyne , UK
+      </div>
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+        Building the <span class="text-emerald-300">Net-Zero</span><br class="hidden md:block"> Future Today
+      </h1>
+      <p class="text-base md:text-xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed px-2">
+        We revolutionize construction by integrating sustainable resources and renewable energy to achieve carbon neutrality in every project.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center px-6">
+        <a href="#booking" class="btn-shine bg-white text-emerald-700 px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-emerald-50 w-full sm:w-auto flex items-center justify-center gap-2">
+          <i class="fas fa-calendar-alt"></i> Book Consultation
+        </a>
+        <a href="#projects" class="bg-transparent text-white px-8 py-4 rounded-xl font-bold border-2 border-white/50 hover:bg-white/10 w-full sm:w-auto flex items-center justify-center gap-2 transition">
+          <i class="fas fa-project-diagram"></i> View Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- ==================== 3. ABOUT SECTION ==================== -->
+  <section id="about" class="py-20 bg-white bg-pattern-dots">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Text Side -->
+        <div data-aos="fade-right">
+          <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm border-l-4 border-emerald-500 pl-3">Who We Are</span>
+          <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
+            Pioneering Sustainable<br><span class="text-emerald-600">Construction</span>
+          </h2>
+
+          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+            Build Planet Zero is a forward-thinking construction firm based in the <strong>North East of England</strong>. We were founded to address the urgent need for carbon reduction in the built environment.
+          </p>
+
+          <p class="text-gray-600 mb-8">
+            Unlike traditional builders, we approach every project with a <strong>system-thinking mindset</strong>. We don't just build structures; we create integrated, energy-efficient ecosystems that reduce operational costs and environmental impact.
+          </p>
+
+          <!-- Key Features Grid -->
+          <div class="grid grid-cols-2 gap-4">
+             <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                 <i class="fas fa-check-circle text-emerald-500 text-xl"></i>
+                 <span class="font-semibold text-gray-800">Net-Zero Focus</span>
+             </div>
+             <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                 <i class="fas fa-bolt text-emerald-500 text-xl"></i>
+                 <span class="font-semibold text-gray-800">Renewable Energy</span>
+             </div>
+             <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                 <i class="fas fa-recycle text-emerald-500 text-xl"></i>
+                 <span class="font-semibold text-gray-800">Circular Economy</span>
+             </div>
+             <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                 <i class="fas fa-drafting-compass text-emerald-500 text-xl"></i>
+                 <span class="font-semibold text-gray-800">Smart Design</span>
+             </div>
+          </div>
+        </div>
+
+        <!-- Image Side -->
+        <div class="relative h-[500px]" data-aos="fade-left">
+    <div id="about-slideshow" class="relative z-10 w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+        <img src="/static/westend1.png"
+             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100 slide" alt="Green Architecture">
+        <img src="/static/wallsend2.png"
+             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide" alt="Eco Home">
+        <img src="/static/4bhk row.png"
+             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide" alt="Solar Panels">
+        <img src="/static/westend2.png"
+             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide" alt="Nature Build">
+        <img src="/static/westend3.png"
+             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide" alt="Nature Build">
+    </div>
+
+    <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl max-w-xs border border-gray-100 z-20 animate-bounce" style="animation-duration: 3s;">
+       <div class="flex items-center gap-4">
+           <div class="bg-emerald-100 p-3 rounded-full text-emerald-600">
+               <i class="fas fa-leaf text-2xl"></i>
+           </div>
+           <div>
+               <p class="font-bold text-gray-900 text-lg">100% Green</p>
+               <p class="text-xs text-gray-500">Sustainable Sourcing</p>
+           </div>
+       </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('#about-slideshow .slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            // Hide current slide
+            slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+
+            // Move to next index
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            // Show next slide
+            slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+        }
+
+        // Change every 7 seconds (7000ms)
+        setInterval(nextSlide, 5000);
+    });
+</script>
+
+
+          <!-- Decorative Dot Pattern Behind -->
+          <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-100 rounded-full opacity-50 z-0 filter blur-3xl"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. CEO / FOUNDER SECTION (REDESIGNED RIGHT SIDE) ==================== -->
+  <section id="founder" class="py-16 md:py-28 bg-white scroll-mt-20 font-sans">
+  <div class="container mx-auto px-6 max-w-[1400px]">
+
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+
+      <div class="w-full lg:w-5/12 flex justify-center lg:justify-end" data-aos="fade-right">
+        <div class="relative w-full max-w-[420px]">
+
+          <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5]">
+            <img src="/static/chen.jpeg" alt="Dr. Xiaohong Chen"
+                 style="object-position: 50% 15%;"
+                 class="w-full h-full object-cover">
+          </div>
+
+          <div class="absolute -bottom-6 -right-4 bg-white p-5 rounded-xl shadow-xl border border-gray-100 z-20 flex items-center gap-4">
+             <div class="bg-emerald-100 p-3 rounded-full text-emerald-600">
+                 <i class="fas fa-globe-americas text-2xl"></i>
+             </div>
+             <div>
+                 <p class="font-bold text-gray-900 text-lg leading-tight">20+ Years</p>
+                 <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Global Impact</p>
+             </div>
+          </div>
+
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-emerald-50 rounded-full opacity-60 z-0 filter blur-3xl"></div>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-7/12" data-aos="fade-left">
+        <div class="max-w-[600px]">
+
+          <span class="text-emerald-600 font-bold uppercase tracking-[0.3em] text-xs border-l-4 border-emerald-500 pl-3 block mb-4">
+            The Visionary
+          </span>
+
+          <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+            Bridging Innovation & <span class="text-emerald-600">Sustainability</span>
+          </h2>
+
+          <div class="space-y-6 text-gray-600 text-lg leading-relaxed">
+            <p>
+              With over two decades of international leadership, <strong class="text-gray-900">Dr. Xiaohong Chen</strong> is a leading authority in the built environment. From managing operations for <span class="text-emerald-700 font-medium">Bioregional China</span> to contributing to the UK’s legendary <span class="italic font-medium">BedZED</span> eco-village, her career has been defined by pioneering carbon reduction at scale.
+            </p>
+
+            <p>
+              In 2022, she founded <strong>Build Planet Zero</strong> to turn strategy into reality. Today, she leads a multidisciplinary team across energy, policy, and finance to deliver holistic, net-zero solutions for the cities of tomorrow.
+            </p>
+          </div>
+
+          <div class="mt-12 flex items-center gap-6">
+            <div class="h-px w-12 bg-emerald-500"></div>
+            <div>
+              <p class="text-2xl font-bold text-gray-900">Dr. Xiaohong Chen</p>
+              <p class="text-emerald-600 font-bold text-xs uppercase tracking-widest">Founder / CEO</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+  <!-- ==================== 5. SPECIALTIES SECTION ==================== -->
+
+
+  <section id="specialties" class="py-20 bg-emerald-900 text-white relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+  <div class="container mx-auto px-6 relative z-10 text-center">
+    <span class="text-emerald-300 font-bold uppercase tracking-widest text-sm">Our Technical Edge</span>
+    <h2 class="text-3xl md:text-5xl font-bold mb-12 mt-2">Core Specialties</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+       <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:border-emerald-400 transition duration-300 group text-left" data-aos="fade-up">
+         <div class="w-14 h-14 bg-emerald-500 rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg">
+           <i class="fas fa-microchip"></i>
+         </div>
+         <h3 class="text-xl font-bold mb-3">Material Innovation</h3>
+         <p class="text-emerald-100 text-sm">Specializing in <strong>SIPs with Hempcrete</strong>, Hydraform blocks, and <strong>Recycled Cork flooring</strong> to eliminate embodied carbon.</p>
+       </div>
+
+       <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:border-blue-400 transition duration-300 group text-left" data-aos="fade-up" data-aos-delay="100">
+         <div class="w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg">
+           <i class="fas fa-home"></i>
+         </div>
+         <h3 class="text-xl font-bold mb-3">ZEM-Home Development</h3>
+         <p class="text-emerald-100 text-sm">Flexible, scalable, and smart energy housing solutions. Modular designs like the <strong>Rowlands Gill</strong> eco-conscious residences.</p>
+       </div>
+
+       <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:border-yellow-400 transition duration-300 group text-left" data-aos="fade-up" data-aos-delay="200">
+         <div class="w-14 h-14 bg-yellow-500 rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg">
+           <i class="fas fa-city"></i>
+         </div>
+         <h3 class="text-xl font-bold mb-3">Masterplanning</h3>
+         <p class="text-emerald-100 text-sm">Zero-carbon feasibility studies and urban design for massive projects like the <strong>Shanghai Disney Neighbourhood</strong>.</p>
+       </div>
+
+       <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:border-purple-400 transition duration-300 group text-left" data-aos="fade-up" data-aos-delay="300">
+         <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg">
+           <i class="fas fa-tools"></i>
+         </div>
+         <h3 class="text-xl font-bold mb-3">Eco-Retrofitting</h3>
+         <p class="text-emerald-100 text-sm">Transforming underused depots and existing buildings into net-zero hubs, as seen in <strong>Nuns Moor Park</strong>.</p>
+       </div>
+
+       <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:border-orange-400 transition duration-300 group text-left" data-aos="fade-up" data-aos-delay="400">
+         <div class="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg">
+           <i class="fas fa-users"></i>
+         </div>
+         <h3 class="text-xl font-bold mb-3">Social Integration</h3>
+         <p class="text-emerald-100 text-sm">Guided by the <strong>3 Es (Environment, Economy, Equity)</strong> to ensure development harmonizes with existing neighborhoods.</p>
+       </div>
+
+       <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:border-cyan-400 transition duration-300 group text-left" data-aos="fade-up" data-aos-delay="500">
+         <div class="w-14 h-14 bg-cyan-500 rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg">
+           <i class="fas fa-solar-panel"></i>
+         </div>
+         <h3 class="text-xl font-bold mb-3">Self-Energy Sufficiency</h3>
+         <p class="text-emerald-100 text-sm">Integrating <strong>Solar Arrays, Triple Glazing, and Reinforced Rubber Roofing</strong> for off-grid capable living.</p>
+       </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- ==================== 6. PROJECTS SECTION (UPDATED LINKS) ==================== -->
+  <section id="projects" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Portfolio</span>
+        <h2 class="text-4xl font-bold text-gray-900 mt-2">Featured Projects</h2>
+        <div class="section-divider mt-4"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Project 1: Residential -->
+        <div class="project-card group shadow-lg" data-aos="fade-up" data-aos-delay="100">
+          <div class="relative h-64 overflow-hidden flex-shrink-0">
+             <!-- Image showing Solar Integrated Roofing & Modern Design -->
+             <img src="/static/wallsend2.png"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Solar Integrated Roofing">
+             <div class="absolute top-4 left-4"><span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-md">Residential</span></div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-gray-900 text-xl font-bold mb-3 group-hover:text-emerald-600 transition">Wallsend Net Zero Housing Development</h3>
+            <p class="text-gray-600 text-sm mb-6 leading-relaxed flex-grow">
+                A pioneering net-zero residential community featuring Solar Integrated Roofing, Polysolar glass, and hempcrete construction.
+            </p>
+            <!-- LINK TO WALLSEND PAGE -->
+            <a href="{{ url_for('project_wallsend') }}" class="inline-flex items-center text-emerald-600 font-bold text-sm hover:underline mt-auto">
+                Learn More <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card group shadow-lg border-b-4 border-emerald-500" data-aos="fade-up" data-aos-delay="200">
+  <div class="relative h-64 overflow-hidden flex-shrink-0">
+     <img src="/static/westend1.png"
+          class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="West End Newcastle Project">
+     <div class="absolute top-4 left-4">
+        <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-md">Community Hub</span>
+     </div>
+  </div>
+  <div class="p-8 flex flex-col flex-grow bg-white">
+    <h3 class="text-gray-900 text-xl font-bold mb-3 group-hover:text-emerald-600 transition">West End Newcastle Sensory Art Centre</h3>
+    <p class="text-gray-600 text-sm mb-6 leading-relaxed flex-grow">
+        A Net-Zero transformation of Nuns Moor Park depot buildings, focusing on the "3 Es of Sustainability": Environment, Economy, and Equity.
+    </p>
+    <a href="{{ url_for('project_west_end') }}" class="inline-flex items-center text-emerald-600 font-bold text-sm hover:underline mt-auto">
+        Explore Strategy <i class="fas fa-leaf ml-2"></i>
+    </a>
+  </div>
+</div>
+
+        <!-- Project 3: Commercial -->
+        <div class="project-card group shadow-lg" data-aos="fade-up" data-aos-delay="300">
+          <div class="relative h-64 overflow-hidden flex-shrink-0">
+             <!-- Image showing Industrial/Commercial Solar -->
+             <img src="static/1bhk row.png"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Solar Panels & Commercial Infrastructure">
+             <div class="absolute top-4 left-4"><span class="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-md">Commercial</span></div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="text-gray-900 text-xl font-bold mb-3 group-hover:text-orange-600 transition">Rowlands Eco-Village & Housing Development</h3>
+            <p class="text-gray-600 text-sm mb-6 leading-relaxed flex-grow">
+                A national exemplar Smart Energy Hub with 1,542 solar panels and commercial battery storage powering an electric fleet.
+            </p>
+            <!-- LINK TO KILLINGWORTH PAGE -->
+           <a href="{{ url_for('project_rowlands') }}" class="inline-flex items-center text-orange-600 font-bold text-sm hover:underline mt-auto">
+    Learn More <i class="fas fa-arrow-right ml-2"></i>
+</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. TEAM SECTION ==================== -->
+  <section id="team" class="py-10 md:py-16 bg-white w-full font-sans">
+    <div class="container mx-auto px-4 max-w-[1920px]">
+
+        <div class="text-center max-w-4xl mx-auto mb-12 md:mb-16">
+            <span class="text-emerald-600 font-bold uppercase tracking-[0.2em] text-xs md:text-sm mb-2 block">Innovation Leaders</span>
+            <h2 class="text-3xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
+                The <span class="text-emerald-500">Expert</span> Team.
+            </h2>
+            <div class="h-1 w-20 bg-emerald-500 mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 mb-24">
+
+            <div class="flex flex-col items-center mt-5">
+                <div class="relative aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-2xl shadow-sm border border-gray-100 mb-4 bg-gray-50">
+                    <img src="/static/chen.jpeg" alt="Dr. Xiaohong Chen"
+                         style="object-position: 50% 15%;"
+                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl md:text-2xl font-bold text-gray-900">Dr. Xiaohong Chen</h4>
+                    <p class="text-emerald-600 font-bold text-[11px] uppercase tracking-widest mt-1">Founder & CEO</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-5">
+                <div class="relative aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-2xl shadow-sm border border-gray-100 mb-4 bg-gray-50">
+                    <img src="/static/Hailun Xie.png" alt="Dr. Hailun Xie"
+                         style="object-position: 50% 15%;"
+                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl md:text-2xl font-bold text-gray-900">Dr. Hailun Xie</h4>
+                    <p class="text-emerald-600 font-bold text-[11px] uppercase tracking-widest mt-1">Data Scientist</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-5">
+                <div class="relative aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-2xl shadow-sm border border-gray-100 mb-4 bg-gray-50">
+                    <img src="/static/Siliang Yang.jpg" alt="Dr. Siliang Yang"
+                         style="object-position: 50% 15%;"
+                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl md:text-2xl font-bold text-gray-900">Dr. Siliang Yang</h4>
+                    <p class="text-emerald-600 font-bold text-[11px] uppercase tracking-widest mt-1">Technical Director</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-5">
+                <div class="relative aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-2xl shadow-sm border border-gray-100 mb-4 bg-gray-50">
+                    <img src="/static/Heba Sarhan.jpg" alt="Dr. Heba Sarhan"
+                         style="object-position: 50% 15%;"
+                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl md:text-2xl font-bold text-gray-900">Dr. Heba Sarhan</h4>
+                    <p class="text-emerald-600 font-bold text-[11px] uppercase tracking-widest mt-1">Principal Architect</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-12">
+            <h3 class="text-2xl md:text-4xl font-bold text-gray-900 uppercase tracking-tight">Our Creative Force</h3>
+            <p class="text-emerald-600 font-bold text-[11px] md:text-xs uppercase tracking-[0.3em] mt-2">Technical & Creative Team</p>
+            <div class="h-1 w-12 bg-gray-200 mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 max-w-3xl mx-auto justify-items-center">
+
+            <div class="flex flex-col items-center w-full">
+                <div class="relative aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-2xl shadow-sm border border-gray-100 mb-4 ml-4 bg-gray-50">
+                    <img src="/static/karthi.png" alt="Karthick P M"
+                         style="object-position: 50% 15%;"
+                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl md:text-2xl font-bold text-gray-900">Karthick P M</h4>
+                    <p class="text-emerald-600 font-bold text-[11px] uppercase tracking-widest mt-1">Tech Developer</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center w-full">
+                <div class="relative aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-2xl shadow-sm border border-gray-100 mb-4 bg-gray-50">
+                    <img src="/static/JP photo.jpeg" alt="JP"
+                         style="object-position: 50% 15%;"
+                         class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="text-center">
+                    <h4 class="text-xl md:text-2xl font-bold text-gray-900">JP</h4>
+                    <p class="text-emerald-600 font-bold text-[11px] uppercase tracking-widest mt-1">Graphic Designer</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+  <!-- ==================== 8. BOOKING SECTION ==================== -->
+  <section id="booking" class="py-24 bg-gray-50 relative overflow-hidden">
+    <!-- Background Decor -->
+    <div class="absolute top-0 right-0 w-1/3 h-full bg-emerald-50 transform skew-x-12 translate-x-20 z-0"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+
+      <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+        <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm border-b-2 border-emerald-500 pb-1">Book an Appointment</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mt-6 mb-4">Schedule Your Free Consultation</h2>
+        <p class="text-gray-600 text-lg">Select a time slot that works for you. Our team is ready to discuss your sustainable construction needs.</p>
+      </div>
+
+      <!-- Main Booking Container (Card) -->
+      <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+          <div class="grid lg:grid-cols-12 h-full">
+
+              <!-- Left: Instructions Panel -->
+              <div class="lg:col-span-4 bg-emerald-50 p-10 flex flex-col justify-center border-r border-gray-100">
+                  <h3 class="text-2xl font-bold text-emerald-900 mb-8">How it works</h3>
+
+                  <div class="space-y-8">
+                      <!-- Step 1 -->
+                      <div class="flex items-start gap-4">
+                          <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold flex-shrink-0">1</div>
+                          <div>
+                              <h4 class="font-bold text-gray-900 text-lg">Choose a Date</h4>
+                              <p class="text-gray-600 text-sm mt-1">Select a day and time from the calendar that fits your schedule.</p>
+                          </div>
+                      </div>
+
+                      <!-- Step 2 -->
+                      <div class="flex items-start gap-4">
+                          <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold flex-shrink-0">2</div>
+                          <div>
+                              <h4 class="font-bold text-gray-900 text-lg">Confirm Details</h4>
+                              <p class="text-gray-600 text-sm mt-1">Enter your name and email so we can send you the meeting invite.</p>
+                          </div>
+                      </div>
+
+                      <!-- Step 3 -->
+                      <div class="flex items-start gap-4">
+                          <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold flex-shrink-0">3</div>
+                          <div>
+                              <h4 class="font-bold text-gray-900 text-lg">We Connect</h4>
+                              <p class="text-gray-600 text-sm mt-1">Join the video call at the scheduled time to discuss your project.</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="mt-10 p-4 bg-white rounded-xl border border-emerald-100 shadow-sm">
+                      <p class="text-sm text-gray-500 text-center italic">
+                          <i class="fas fa-lock mr-1"></i> Your information is secure.
+                      </p>
+                  </div>
+              </div>
+
+              <!-- Right: Calendly Widget -->
+              <div class="lg:col-span-8 bg-white relative min-h-[700px]">
+                  <!-- ⚠️ IMPORTANT: REPLACE THE DATA-URL BELOW WITH YOUR ACTUAL CALENDLY LINK -->
+                  <div class="calendly-inline-widget"
+                       data-url="https://calendly.com/x-chen-buildplanetzero/30min"
+                       style="min-width:320px;height:100%;width:100%;"></div>
+              </div>
+
+          </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 9. CONTACT FORM ==================== -->
+  <section id="contact" class="bg-white py-20">
+  <div class="container mx-auto px-4 md:px-6">
+     <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl overflow-hidden shadow-2xl">
+        <div class="grid md:grid-cols-2">
+
+           <div class="p-8 md:p-12 text-white flex flex-col justify-center">
+              <span class="text-emerald-400 font-bold tracking-widest text-xs md:text-sm uppercase mb-4 flex items-center gap-2">
+                <i class="fas fa-envelope"></i> General Inquiry
+              </span>
+              <h2 class="text-3xl md:text-4xl font-bold mb-2">Send us a Message</h2>
+              <p class="text-gray-400 mb-6" id="form-instruction">Can't find a time slot? Send us a direct message here.</p>
+
+              <div id="form-success-alert" class="hidden mb-6 p-4 bg-emerald-600 rounded-xl text-white flex items-center gap-3 animate-bounce">
+                  <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"><i class="fas fa-check text-xl"></i></div>
+                  <div>
+                    <p class="font-bold">Message Sent!</p>
+                    <p class="text-sm text-emerald-100">Message sent successfully! Our team will contact you soon.</p>
+                  </div>
+              </div>
+
+              <form id="contact-form-main" class="space-y-4">
+                  <input type="hidden" name="_subject" value="🔔 New Inquiry - Build Planet Zero">
+                  <input type="hidden" name="_captcha" value="false">
+                  <input type="text" name="_honey" style="display:none">
+
+                  <div>
+                      <label class="block text-sm font-medium text-gray-300 mb-2">I am a...</label>
+                      <select name="User Type" class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-emerald-500 outline-none">
+                          <option value="Customer">Customer</option>
+                          <option value="Investor">Investor</option>
+                          <option value="Partner">Partner</option>
+                          <option value="Other">Other</option>
+                      </select>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div><input type="text" name="Name" placeholder="Full Name" required class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-emerald-500 outline-none"></div>
+                      <div><input type="tel" name="Phone" placeholder="Phone" required class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-emerald-500 outline-none"></div>
+                  </div>
+
+                  <div><input type="email" name="Email" placeholder="Email Address" required class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-emerald-500 outline-none"></div>
+                  <div><textarea name="Message" rows="4" placeholder="How can we help?" required class="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-emerald-500 outline-none"></textarea></div>
+
+                  <button type="submit" id="submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition duration-300">
+                      <span id="btn-text">Send Message</span> <i class="fas fa-paper-plane ml-2"></i>
+                  </button>
+              </form>
+           </div>
+
+           <div class="relative bg-emerald-900 h-full min-h-[500px]">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-20">
+              <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center z-10 space-y-6">
+                 <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 w-full max-w-sm">
+                     <i class="fas fa-map-pin text-3xl text-emerald-400 mb-3"></i>
+                     <h3 class="font-bold text-white text-xl">Headquarters</h3>
+                     <p class="text-emerald-200 text-sm">Newcastle upon Tyne, UK</p>
+                 </div>
+                 <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 w-full max-w-sm">
+                     <i class="fas fa-envelope text-3xl text-emerald-400 mb-3"></i>
+                     <h3 class="font-bold text-white text-xl">Email Us</h3>
+                     <p class="text-emerald-200 text-sm">X.chen@Buildplanetzero.co.uk</p>
+                 </div>
+                 <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 w-full max-w-sm">
+                     <i class="fas fa-clock text-3xl text-emerald-400 mb-3"></i>
+                     <h3 class="font-bold text-white text-xl">Business Hours</h3>
+                     <p class="text-emerald-200 text-sm">Mon - Fri: 9:00 AM - 5:00 PM</p>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+  <script>
+    const contactForm = document.getElementById('contact-form-main');
+    const successAlert = document.getElementById('form-success-alert');
+    const instructionText = document.getElementById('form-instruction');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Loading state
+      btnText.innerText = "Sending...";
+      submitBtn.disabled = true;
+
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData);
+
+      fetch("https://formsubmit.co/ajax/karthikpm7728@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+          // 1. Hide form and show success
+          contactForm.classList.add('hidden');
+          instructionText.classList.add('hidden');
+          successAlert.classList.remove('hidden');
+
+          // 2. Wait 5 seconds, then reset everything back to normal
+          setTimeout(() => {
+              successAlert.classList.add('hidden');
+              contactForm.classList.remove('hidden');
+              instructionText.classList.remove('hidden');
+              contactForm.reset(); // Clear input fields
+              btnText.innerText = "Send Message";
+              submitBtn.disabled = false;
+          }, 5000);
+      })
+      .catch(error => {
+          alert("Error sending message. Please try again.");
+          btnText.innerText = "Send Message";
+          submitBtn.disabled = false;
+      });
+    });
+  </script>
+</section>
+
+  <!-- ==================== 10. FOOTER ==================== -->
+  <footer class="bg-gray-900 text-gray-400 py-16 border-t border-gray-800">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+
+        <!-- Brand -->
+        <div class="md:col-span-1">
+          <div class="flex items-center space-x-3 mb-6">
+             <img src="/static/LOGO_1.jpeg" alt="Logo" class="h-10 w-10 rounded">
+             <span class="text-white font-bold text-xl">Build Planet Zero</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">Founded in 2022. Committed to achieving net-zero carbon in the construction industry through sustainable resources.</p>
+          <div class="flex space-x-4 text-xl">
+             <a href="https://www.linkedin.com/company/build-planet-zero/posts/?feedView=all" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin"></i></a>
+             <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+             <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links (Matches Navbar) -->
+        <div>
+          <h4 class="text-white font-bold mb-6 text-lg">Quick Links</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#about" class="hover:text-emerald-400 transition">About Us</a></li>
+            <li><a href="#projects" class="hover:text-emerald-400 transition">Projects</a></li>
+            <li><a href="#team" class="hover:text-emerald-400 transition">Our Team</a></li>
+            <li><a href="#booking" class="hover:text-emerald-400 transition font-bold text-emerald-500">Book Appointment</a></li>
+<!--            <li><a href="{{ url_for('login') }}" class="hover:text-emerald-400 transition">Admin Login</a></li>-->
+          </ul>
+        </div>
+
+        <!-- Services (Matches Specialties) -->
+        <div>
+          <h4 class="text-white font-bold mb-6 text-lg">Services</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#specialties" class="hover:text-emerald-400 transition">Planning & Design</a></li>
+            <li><a href="#specialties" class="hover:text-emerald-400 transition">Sustainability Consultancy</a></li>
+            <li><a href="#specialties" class="hover:text-emerald-400 transition">Renewable Integration</a></li>
+            <li><a href="#specialties" class="hover:text-emerald-400 transition">Carbon Management</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <h4 class="text-white font-bold mb-6 text-lg">Contact Us</h4>
+          <ul class="space-y-4 text-sm">
+            <li class="flex items-start gap-3">
+                <i class="fas fa-map-marker-alt text-emerald-500 mt-1"></i>
+                <span>Newcastle upon Tyne,<br>United Kingdom</span>
+            </li>
+            <li class="flex items-center gap-3">
+                <i class="fas fa-envelope text-emerald-500"></i>
+                <a href="mailto:xiaohong006@hotmail.com" class="hover:text-emerald-400">X.chen@buildplanetzero.co.uk</a>
+            </li>
+            <li class="flex items-center gap-3">
+                <i class="fas fa-clock text-emerald-500"></i>
+                <span>Mon-Fri: 9am - 5pm</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-600">
+        <p>&copy; 2026 Build Planet Zero. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+
+<!--  &lt;!&ndash; Floating Buttons &ndash;&gt;-->
+<!--  <button id="chatbot"><i class="fas fa-robot text-xl"></i><span>Ask AI</span></button>-->
+<!--  <div id="floating-book" onclick="document.getElementById('booking').scrollIntoView()">BOOK NOW</div>-->
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <script>
+    // Initialize Animations
+    AOS.init({ offset: 100, duration: 800, easing: 'ease-in-out', once: true });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Header Background on Scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) { header.classList.add('shadow-lg', 'bg-white'); header.classList.remove('bg-white/95'); }
+      else { header.classList.remove('shadow-lg', 'bg-white'); header.classList.add('bg-white/95'); }
+    });
+
+    // Chatbot Redirect
+    document.getElementById('chatbot').addEventListener('click', function() { window.location.href = '/chat'; });
+
+    // Flash Message Auto-Hide
+    setTimeout(() => {
+      const flashMsg = document.getElementById('flash-message');
+      if (flashMsg) flashMsg.remove();
+    }, 5000);
+
+    // FormSubmit Success Handler
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('email_sent') === 'true') {
+        const alert = document.getElementById('form-success-alert');
+        if (alert) alert.classList.remove('hidden');
+        window.history.replaceState({}, document.title, window.location.pathname + '#contact');
+      }
+    })();
+  </script>
+<!--{% include 'chat.html' %}-->
+</body>
+</html>
